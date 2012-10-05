@@ -1,13 +1,14 @@
+# -*- encoding:ascii -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
-_magic_number = 5
-_modified_time = 1297785256.070946
+_magic_number = 6
+_modified_time = 1349461623.01857
 _template_filename=u'templates/grid_common.mako'
-_template_uri=u'./grid_common.mako'
+_template_uri=u'/./grid_common.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
-_source_encoding=None
+_source_encoding='ascii'
 _exports = ['render_grid_filters', 'render_grid_column_filter']
 
 
@@ -31,7 +32,7 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_render_grid_filters(context,grid):
+def render_render_grid_filters(context,grid,render_advanced_search=True):
     context.caller_stack._push_frame()
     try:
         cur_filter_dict = context.get('cur_filter_dict', UNDEFINED)
@@ -54,6 +55,8 @@ def render_render_grid_filters(context,grid):
                 __M_writer(u'                       ')
                 __M_writer(unicode(render_grid_column_filter( grid, column )))
                 __M_writer(u'\n')
+                pass
+            pass
         # SOURCE LINE 116
         __M_writer(u'                </table>\n            </td></tr>\n            <tr><td>\n')
         # SOURCE LINE 123
@@ -62,28 +65,30 @@ def render_render_grid_filters(context,grid):
         __M_writer(u'                ')
 
         show_advanced_search_link = False
-        for column in grid.columns:
-            if column.filterable == "advanced":
-                show_advanced_search_link = True
-                break
-            endif
+        if render_advanced_search:
+            for column in grid.columns:
+                if column.filterable == "advanced":
+                    show_advanced_search_link = True
+                    break
+                endif
                         
         
-        # SOURCE LINE 132
-        __M_writer(u'\n')
         # SOURCE LINE 133
+        __M_writer(u'\n')
+        # SOURCE LINE 134
         if show_advanced_search_link:
-            # SOURCE LINE 134
+            # SOURCE LINE 135
             __M_writer(u'                    ')
             args = { "advanced-search" : True } 
             
             __M_writer(u'\n                    <a href="')
-            # SOURCE LINE 135
+            # SOURCE LINE 136
             __M_writer(unicode(url( args )))
             __M_writer(u'" class="advanced-search-toggle">Advanced Search</a>\n')
-        # SOURCE LINE 137
+            pass
+        # SOURCE LINE 138
         __M_writer(u'            </td></tr>\n        </table>\n    </div>\n    \n')
-        # SOURCE LINE 142
+        # SOURCE LINE 143
         __M_writer(u'    ')
 
         # Show advanced search if flag set or if there are filters for advanced search fields.
@@ -99,35 +104,38 @@ def render_render_grid_filters(context,grid):
                         advanced_search_display = "block"
             
         
-        # SOURCE LINE 154
-        __M_writer(u'\n    <div id="advanced-search" style="display: ')
         # SOURCE LINE 155
+        __M_writer(u'\n    <div id="advanced-search" style="display: ')
+        # SOURCE LINE 156
         __M_writer(unicode(advanced_search_display))
         __M_writer(u'; margin-top: 5px; border: 1px solid #ccc;">\n        <table>\n            <tr><td style="text-align: left" colspan="100">\n                ')
-        # SOURCE LINE 158
+        # SOURCE LINE 159
         args = { "advanced-search" : False } 
         
         __M_writer(u'\n                <a href="')
-        # SOURCE LINE 159
+        # SOURCE LINE 160
         __M_writer(unicode(url( args )))
         __M_writer(u'" class="advanced-search-toggle">Close Advanced Search</a>\n')
-        # SOURCE LINE 166
-        __M_writer(u'            </td></tr>\n')
         # SOURCE LINE 167
+        __M_writer(u'            </td></tr>\n')
+        # SOURCE LINE 168
         for column in grid.columns:            
-            # SOURCE LINE 168
+            # SOURCE LINE 169
             if column.filterable == "advanced":
-                # SOURCE LINE 170
+                # SOURCE LINE 171
                 if column.key in cur_filter_dict and column.key in default_filter_dict and \
                         cur_filter_dict[column.key] != default_filter_dict[column.key]:
-                    # SOURCE LINE 172
-                    __M_writer(u'                        <script type="text/javascript">\n                            $(\'#advanced-search\').css("display", "block");\n                        </script>\n')
-                # SOURCE LINE 176
-                __M_writer(u'            \n                    ')
+                    # SOURCE LINE 173
+                    __M_writer(u'                        <script type="text/javascript">\n                            $(\'#advanced-search\').css("display", "none");\n                        </script>\n')
+                    pass
                 # SOURCE LINE 177
+                __M_writer(u'            \n                    ')
+                # SOURCE LINE 178
                 __M_writer(unicode(render_grid_column_filter( grid, column )))
                 __M_writer(u'\n')
-        # SOURCE LINE 180
+                pass
+            pass
+        # SOURCE LINE 181
         __M_writer(u'        </table>\n    </div>\n')
         return ''
     finally:
@@ -164,6 +172,7 @@ def render_render_grid_column_filter(context,grid,column):
             __M_writer(u'            <td align="left" style="padding-left: 10px">')
             __M_writer(unicode(column_label))
             __M_writer(u':</td>\n')
+            pass
         # SOURCE LINE 17
         __M_writer(u'        <td style="padding: 0;">\n')
         # SOURCE LINE 18
@@ -201,6 +210,9 @@ def render_render_grid_column_filter(context,grid,column):
                         __M_writer(u'" value=\'')
                         __M_writer(unicode(value))
                         __M_writer(u"'/>\n")
+                        pass
+                    pass
+                pass
             # SOURCE LINE 33
             __M_writer(u'                    \n')
             # SOURCE LINE 35
@@ -230,6 +242,7 @@ def render_render_grid_column_filter(context,grid,column):
                         # SOURCE LINE 43
                         __M_writer(unicode(url( filter_all.get_url_args() )))
                         __M_writer(u'"><span class="delete-search-icon" /></a>                                \n                                    </span>\n')
+                        pass
                     # SOURCE LINE 46
                 elif isinstance( column_filter, list ):
                     # SOURCE LINE 47
@@ -238,6 +251,7 @@ def render_render_grid_column_filter(context,grid,column):
                         if i > 0:
                             # SOURCE LINE 49
                             __M_writer(u'                                        ,\n')
+                            pass
                         # SOURCE LINE 51
                         __M_writer(u"                                    <span class='text-filter-val'>")
                         __M_writer(unicode(filter))
@@ -254,6 +268,9 @@ def render_render_grid_column_filter(context,grid,column):
                         # SOURCE LINE 57
                         __M_writer(unicode(url( new_column_filter.get_url_args() )))
                         __M_writer(u'"><span class="delete-search-icon" /></a>\n                                    </span>\n')
+                        pass
+                    pass
+                pass
             # SOURCE LINE 62
             __M_writer(u'                    </span>\n')
             # SOURCE LINE 64
@@ -303,6 +320,7 @@ def render_render_grid_column_filter(context,grid,column):
                 if i > 0:
                     # SOURCE LINE 88
                     __M_writer(u'                            |\n')
+                    pass
                 # SOURCE LINE 90
                 if column.key in cur_filter_dict and column.key in filter.args and cur_filter_dict[column.key] == filter.args[column.key]:
                     # SOURCE LINE 91
@@ -326,8 +344,11 @@ def render_render_grid_column_filter(context,grid,column):
                     __M_writer(u'">')
                     __M_writer(unicode(filter.label))
                     __M_writer(u'</a>\n                            </span>\n')
+                    pass
+                pass
             # SOURCE LINE 98
             __M_writer(u'                </span>\n')
+            pass
         # SOURCE LINE 100
         __M_writer(u'        </td>\n    </tr>\n')
         return ''

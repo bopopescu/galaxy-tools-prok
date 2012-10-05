@@ -1,13 +1,14 @@
+# -*- encoding:ascii -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
-_magic_number = 5
-_modified_time = 1308683819.3344669
+_magic_number = 6
+_modified_time = 1349459319.625536
 _template_filename='templates/user/register.mako'
 _template_uri='/user/register.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
-_source_encoding=None
+_source_encoding='ascii'
 _exports = ['javascripts', 'render_registration_form']
 
 
@@ -19,8 +20,8 @@ def _mako_get_namespace(context, name):
         return context.namespaces[(__name__, name)]
 def _mako_generate_namespaces(context):
     # SOURCE LINE 2
-    ns = runtime.Namespace('__anon_0x6877ad0', context._clean_inheritance_tokens(), templateuri=u'/message.mako', callables=None, calling_uri=_template_uri, module=None)
-    context.namespaces[(__name__, '__anon_0x6877ad0')] = ns
+    ns = runtime.TemplateNamespace('__anon_0x5b10f90', context._clean_inheritance_tokens(), templateuri=u'/message.mako', callables=None, calling_uri=_template_uri)
+    context.namespaces[(__name__, '__anon_0x5b10f90')] = ns
 
 def _mako_inherit(template, context):
     _mako_generate_namespaces(context)
@@ -30,7 +31,7 @@ def render_body(context,**pageargs):
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x6877ad0')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5b10f90')._populate(_import_ns, [u'render_msg'])
         status = _import_ns.get('status', context.get('status', UNDEFINED))
         render_msg = _import_ns.get('render_msg', context.get('render_msg', UNDEFINED))
         redirect_url = _import_ns.get('redirect_url', context.get('redirect_url', UNDEFINED))
@@ -50,6 +51,7 @@ def render_body(context,**pageargs):
             # SOURCE LINE 6
             __M_writer(unicode(redirect_url))
             __M_writer(u"';\n    </script>\n")
+            pass
         # SOURCE LINE 9
         __M_writer(u'\n')
         # SOURCE LINE 12
@@ -60,6 +62,7 @@ def render_body(context,**pageargs):
             __M_writer(u'    ')
             __M_writer(unicode(render_msg( message, status )))
             __M_writer(u'\n')
+            pass
         # SOURCE LINE 17
         __M_writer(u'\n')
         # SOURCE LINE 20
@@ -68,9 +71,10 @@ def render_body(context,**pageargs):
             __M_writer(u'    ')
             __M_writer(unicode(render_registration_form()))
             __M_writer(u'\n')
+            pass
         # SOURCE LINE 23
         __M_writer(u'\n')
-        # SOURCE LINE 95
+        # SOURCE LINE 106
         __M_writer(u'\n')
         return ''
     finally:
@@ -81,7 +85,7 @@ def render_javascripts(context):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x6877ad0')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5b10f90')._populate(_import_ns, [u'render_msg'])
         parent = _import_ns.get('parent', context.get('parent', UNDEFINED))
         __M_writer = context.writer()
         # SOURCE LINE 10
@@ -98,16 +102,17 @@ def render_render_registration_form(context,form_action=None):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x6877ad0')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5b10f90')._populate(_import_ns, [u'render_msg'])
+        redirect = _import_ns.get('redirect', context.get('redirect', UNDEFINED))
         username = _import_ns.get('username', context.get('username', UNDEFINED))
         trans = _import_ns.get('trans', context.get('trans', UNDEFINED))
         user_type_form_definition = _import_ns.get('user_type_form_definition', context.get('user_type_form_definition', UNDEFINED))
         confirm = _import_ns.get('confirm', context.get('confirm', UNDEFINED))
         h = _import_ns.get('h', context.get('h', UNDEFINED))
+        len = _import_ns.get('len', context.get('len', UNDEFINED))
         user_type_fd_id_select_field = _import_ns.get('user_type_fd_id_select_field', context.get('user_type_fd_id_select_field', UNDEFINED))
         widgets = _import_ns.get('widgets', context.get('widgets', UNDEFINED))
         subscribe_checked = _import_ns.get('subscribe_checked', context.get('subscribe_checked', UNDEFINED))
-        referer = _import_ns.get('referer', context.get('referer', UNDEFINED))
         cntrller = _import_ns.get('cntrller', context.get('cntrller', UNDEFINED))
         webapp = _import_ns.get('webapp', context.get('webapp', UNDEFINED))
         password = _import_ns.get('password', context.get('password', UNDEFINED))
@@ -133,9 +138,9 @@ def render_render_registration_form(context,form_action=None):
         __M_writer(u'" size="40"/>\n                <input type="hidden" name="webapp" value="')
         # SOURCE LINE 39
         __M_writer(unicode(webapp))
-        __M_writer(u'" size="40"/>\n                <input type="hidden" name="referer" value="')
+        __M_writer(u'" size="40"/>\n                <input type="hidden" name="redirect" value="')
         # SOURCE LINE 40
-        __M_writer(unicode(referer))
+        __M_writer(unicode(redirect))
         __M_writer(u'" size="40"/>\n            </div>\n            <div class="form-row">\n                <label>Password:</label>\n                <input type="password" name="password" value="')
         # SOURCE LINE 44
         __M_writer(unicode(password))
@@ -145,51 +150,68 @@ def render_render_registration_form(context,form_action=None):
         __M_writer(u'" size="40"/>\n            </div>\n            <div class="form-row">\n                <label>Public name:</label>\n                <input type="text" name="username" size="40" value="')
         # SOURCE LINE 52
         __M_writer(unicode(username))
-        __M_writer(u'"/>\n                <div class="toolParamHelp" style="clear: both;">\n                    Your public name is an identifier that will be used to generate addresses for information\n                    you share publicly. Public names must be at least four characters in length and contain only lower-case\n                    letters, numbers, and the \'-\' character.\n                </div>\n            </div>\n')
-        # SOURCE LINE 59
-        if trans.app.config.smtp_server:
+        __M_writer(u'"/>\n')
+        # SOURCE LINE 53
+        if webapp == 'galaxy':
+            # SOURCE LINE 54
+            __M_writer(u'                    <div class="toolParamHelp" style="clear: both;">\n                        Your public name is an identifier that will be used to generate addresses for information\n                        you share publicly. Public names must be at least four characters in length and contain only lower-case\n                        letters, numbers, and the \'-\' character.\n                    </div>\n')
+            # SOURCE LINE 59
+        else:
             # SOURCE LINE 60
+            __M_writer(u'                    <div class="toolParamHelp" style="clear: both;">\n                        Your public name provides a means of identifying you publicly within this tool shed. Public\n                        names must be at least four characters in length and contain only lower-case letters, numbers,\n                        and the \'-\' character.  You cannot change your public name after you have created a repository\n                        in this tool shed.\n                    </div>\n')
+            pass
+        # SOURCE LINE 67
+        __M_writer(u'            </div>\n')
+        # SOURCE LINE 68
+        if trans.app.config.smtp_server:
+            # SOURCE LINE 69
             __M_writer(u'                <div class="form-row">\n                    <label>Subscribe to mailing list:</label>\n')
-            # SOURCE LINE 62
+            # SOURCE LINE 71
             if subscribe_checked:
-                # SOURCE LINE 63
+                # SOURCE LINE 72
                 __M_writer(u'                        ')
                 subscribe_check_box.checked = True 
                 
                 __M_writer(u'\n')
-            # SOURCE LINE 65
+                pass
+            # SOURCE LINE 74
             __M_writer(u'                    ')
             __M_writer(unicode(subscribe_check_box.get_html()))
-            __M_writer(u'\n                </div>\n')
-        # SOURCE LINE 68
-        if user_type_fd_id_select_field:
-            # SOURCE LINE 69
+            __M_writer(u'\n                    <p>See <a href="http://galaxyproject.org/wiki/Mailing%20Lists" target="_blank">\n                    all Galaxy project mailing lists</a>.</p>\n                </div>\n')
+            pass
+        # SOURCE LINE 79
+        if user_type_fd_id_select_field and len( user_type_fd_id_select_field.options ) > 1:
+            # SOURCE LINE 80
             __M_writer(u'                <div class="form-row">\n                    <label>User type</label>\n                    ')
-            # SOURCE LINE 71
+            # SOURCE LINE 82
             __M_writer(unicode(user_type_fd_id_select_field.get_html()))
             __M_writer(u'\n                </div>\n')
-        # SOURCE LINE 74
+            pass
+        # SOURCE LINE 85
         if user_type_form_definition:
-            # SOURCE LINE 75
+            # SOURCE LINE 86
             for field in widgets:
-                # SOURCE LINE 76
+                # SOURCE LINE 87
                 __M_writer(u'                    <div class="form-row">\n                        <label>')
-                # SOURCE LINE 77
+                # SOURCE LINE 88
                 __M_writer(unicode(field['label']))
                 __M_writer(u'</label>\n                        ')
-                # SOURCE LINE 78
+                # SOURCE LINE 89
                 __M_writer(unicode(field['widget'].get_html()))
                 __M_writer(u'\n                        <div class="toolParamHelp" style="clear: both;">\n                            ')
-                # SOURCE LINE 80
+                # SOURCE LINE 91
                 __M_writer(unicode(field['helptext']))
                 __M_writer(u'\n                        </div>\n                        <div style="clear: both"></div>\n                    </div>\n')
-            # SOURCE LINE 85
+                pass
+            # SOURCE LINE 96
             if not user_type_fd_id_select_field:
-                # SOURCE LINE 86
+                # SOURCE LINE 97
                 __M_writer(u'                    <input type="hidden" name="user_type_fd_id" value="')
                 __M_writer(unicode(trans.security.encode_id( user_type_form_definition.id )))
                 __M_writer(u'"/>\n')
-        # SOURCE LINE 89
+                pass
+            pass
+        # SOURCE LINE 100
         __M_writer(u'            <div class="form-row">\n                <input type="submit" name="create_user_button" value="Submit"/>\n            </div>\n        </form>\n    </div>\n\n')
         return ''
     finally:

@@ -1,17 +1,18 @@
+# -*- encoding:ascii -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
-_magic_number = 5
-_modified_time = 1297785187.4656889
+_magic_number = 6
+_modified_time = 1349461622.981114
 _template_filename=u'templates/display_common.mako'
 _template_uri=u'/display_common.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
-_source_encoding=None
+_source_encoding='ascii'
 _exports = ['get_class_plural_display_name', 'get_item_user', 'get_item_plural', 'render_message', 'get_class_plural', 'get_item_name', 'get_class_display_name', 'get_controller_name', 'get_item_slug', 'get_history_link']
 
 
-# SOURCE LINE 6
+# SOURCE LINE 8
 from galaxy import model 
 
 def render_body(context,**pageargs):
@@ -19,31 +20,31 @@ def render_body(context,**pageargs):
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         __M_writer = context.writer()
-        # SOURCE LINE 5
+        # SOURCE LINE 7
         __M_writer(u'\n')
-        # SOURCE LINE 6
+        # SOURCE LINE 8
         __M_writer(u'\n\n')
-        # SOURCE LINE 17
+        # SOURCE LINE 19
         __M_writer(u'\n\n')
-        # SOURCE LINE 36
+        # SOURCE LINE 38
         __M_writer(u'\n\n')
-        # SOURCE LINE 49
+        # SOURCE LINE 51
         __M_writer(u'\n\n')
-        # SOURCE LINE 62
+        # SOURCE LINE 64
         __M_writer(u'\n\n')
-        # SOURCE LINE 67
+        # SOURCE LINE 69
         __M_writer(u'\n\n')
-        # SOURCE LINE 94
+        # SOURCE LINE 96
         __M_writer(u'\n\n')
-        # SOURCE LINE 110
+        # SOURCE LINE 112
         __M_writer(u'\n\n')
-        # SOURCE LINE 121
+        # SOURCE LINE 123
         __M_writer(u'\n\n')
-        # SOURCE LINE 132
+        # SOURCE LINE 134
         __M_writer(u'\n\n')
-        # SOURCE LINE 141
+        # SOURCE LINE 143
         __M_writer(u'\n\n')
-        # SOURCE LINE 151
+        # SOURCE LINE 153
         __M_writer(u'\n\n')
         return ''
     finally:
@@ -56,9 +57,9 @@ def render_get_class_plural_display_name(context,a_class):
         def get_class_display_name(a_class):
             return render_get_class_display_name(context,a_class)
         __M_writer = context.writer()
-        # SOURCE LINE 39
+        # SOURCE LINE 41
         __M_writer(u'\n')
-        # SOURCE LINE 40
+        # SOURCE LINE 42
 
     # Start with exceptions, end with default.
         if a_class is model.History:
@@ -69,7 +70,7 @@ def render_get_class_plural_display_name(context,a_class):
             return get_class_display_name( a_class ) + "s"
         
         
-        # SOURCE LINE 48
+        # SOURCE LINE 50
         __M_writer(u'\n')
         return ''
     finally:
@@ -81,9 +82,9 @@ def render_get_item_user(context,item):
     try:
         isinstance = context.get('isinstance', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 113
+        # SOURCE LINE 115
         __M_writer(u'\n    ')
-        # SOURCE LINE 114
+        # SOURCE LINE 116
 
         # Exceptions first, default last.
         if isinstance( item, model.HistoryDatasetAssociation ):
@@ -92,7 +93,7 @@ def render_get_item_user(context,item):
             return item.user
             
         
-        # SOURCE LINE 120
+        # SOURCE LINE 122
         __M_writer(u'\n')
         return ''
     finally:
@@ -105,9 +106,9 @@ def render_get_item_plural(context,item):
         def get_class_plural(a_class):
             return render_get_class_plural(context,a_class)
         __M_writer = context.writer()
-        # SOURCE LINE 65
+        # SOURCE LINE 67
         __M_writer(u'\n\t')
-        # SOURCE LINE 66
+        # SOURCE LINE 68
         return get_class_plural( item.__class__ ) 
         
         __M_writer(u'\n')
@@ -121,17 +122,18 @@ def render_render_message(context,message,status):
     try:
         util = context.get('util', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 144
+        # SOURCE LINE 146
         __M_writer(u'\n')
-        # SOURCE LINE 145
+        # SOURCE LINE 147
         if message:
-            # SOURCE LINE 146
+            # SOURCE LINE 148
             __M_writer(u'        <p>\n            <div class="')
-            # SOURCE LINE 147
+            # SOURCE LINE 149
             __M_writer(unicode(status))
             __M_writer(u'message transient-message">')
             __M_writer(unicode(util.restore_text( message )))
             __M_writer(u'</div>\n            <div style="clear: both"></div>\n        </p>\n')
+            pass
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -141,9 +143,9 @@ def render_get_class_plural(context,a_class):
     context.caller_stack._push_frame()
     try:
         __M_writer = context.writer()
-        # SOURCE LINE 70
+        # SOURCE LINE 72
         __M_writer(u'\n')
-        # SOURCE LINE 71
+        # SOURCE LINE 73
 
         if a_class == model.History:
             class_plural = "Histories"
@@ -164,11 +166,11 @@ def render_get_class_plural(context,a_class):
         elif a_class == model.UserOpenID:
             class_plural = "OpenIDs"
         else:
-            class_plural = a_class.__name__ + "s"
+            class_plural = "items"
         return class_plural
         
         
-        # SOURCE LINE 93
+        # SOURCE LINE 95
         __M_writer(u'\n')
         return ''
     finally:
@@ -183,9 +185,9 @@ def render_get_item_name(context,item):
         unicode = context.get('unicode', UNDEFINED)
         str = context.get('str', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 19
+        # SOURCE LINE 21
         __M_writer(u'\n    ')
-        # SOURCE LINE 20
+        # SOURCE LINE 22
  
         # Start with exceptions, end with default.
         if type( item ) is model.Page:
@@ -203,7 +205,7 @@ def render_get_item_name(context,item):
         return item_name        
         
         
-        # SOURCE LINE 35
+        # SOURCE LINE 37
         __M_writer(u'\n')
         return ''
     finally:
@@ -214,9 +216,9 @@ def render_get_class_display_name(context,a_class):
     context.caller_stack._push_frame()
     try:
         __M_writer = context.writer()
-        # SOURCE LINE 52
+        # SOURCE LINE 54
         __M_writer(u'\n')
-        # SOURCE LINE 53
+        # SOURCE LINE 55
 
     ## Start with exceptions, end with default.
         if a_class is model.StoredWorkflow:
@@ -227,7 +229,7 @@ def render_get_class_display_name(context,a_class):
             return a_class.__name__
         
         
-        # SOURCE LINE 61
+        # SOURCE LINE 63
         __M_writer(u'\n')
         return ''
     finally:
@@ -239,9 +241,9 @@ def render_get_controller_name(context,item):
     try:
         isinstance = context.get('isinstance', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 97
+        # SOURCE LINE 99
         __M_writer(u'\n    ')
-        # SOURCE LINE 98
+        # SOURCE LINE 100
 
         if isinstance( item, model.History ):
             return "history"
@@ -255,7 +257,7 @@ def render_get_controller_name(context,item):
             return "visualization"
             
         
-        # SOURCE LINE 109
+        # SOURCE LINE 111
         __M_writer(u'\n')
         return ''
     finally:
@@ -268,9 +270,9 @@ def render_get_item_slug(context,item):
         trans = context.get('trans', UNDEFINED)
         isinstance = context.get('isinstance', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 124
+        # SOURCE LINE 126
         __M_writer(u'\n    ')
-        # SOURCE LINE 125
+        # SOURCE LINE 127
 
         # Exceptions first, default last.
         if isinstance( item, model.HistoryDatasetAssociation ):
@@ -279,7 +281,7 @@ def render_get_item_slug(context,item):
             return item.slug
             
         
-        # SOURCE LINE 131
+        # SOURCE LINE 133
         __M_writer(u'\n')
         return ''
     finally:
@@ -292,22 +294,23 @@ def render_get_history_link(context,history,qualify=False):
         h = context.get('h', UNDEFINED)
         trans = context.get('trans', UNDEFINED)
         __M_writer = context.writer()
-        # SOURCE LINE 135
+        # SOURCE LINE 137
         __M_writer(u'\n')
-        # SOURCE LINE 136
+        # SOURCE LINE 138
         if history.slug and history.user.username:
-            # SOURCE LINE 137
+            # SOURCE LINE 139
             __M_writer(u'        ')
             return h.url_for( controller='/history', action='display_by_username_and_slug', username=history.user.username, slug=history.slug, qualified=qualify ) 
             
             __M_writer(u'\n')
-            # SOURCE LINE 138
+            # SOURCE LINE 140
         else:
-            # SOURCE LINE 139
+            # SOURCE LINE 141
             __M_writer(u'        ')
-            return h.url_for( controller='/history', action='view', id=trans.security.encode_id( history.id ), qualified=qualify ) 
+            return h.url_for( controller='/history', action='view', id=trans.security.encode_id( history.id ), qualified=qualify, use_panels=context.get('use_panels', True) ) 
             
             __M_writer(u'\n')
+            pass
         return ''
     finally:
         context.caller_stack._pop_frame()

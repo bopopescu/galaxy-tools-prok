@@ -1,13 +1,14 @@
+# -*- encoding:ascii -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
-_magic_number = 5
-_modified_time = 1292336239.1496029
+_magic_number = 6
+_modified_time = 1349454195.760119
 _template_filename='templates/user/login.mako'
 _template_uri='/user/login.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
-_source_encoding=None
+_source_encoding='ascii'
 _exports = ['body', 'init', 'render_openid_form', 'center_panel', 'render_login_form']
 
 
@@ -32,8 +33,8 @@ def _mako_get_namespace(context, name):
         return context.namespaces[(__name__, name)]
 def _mako_generate_namespaces(context):
     # SOURCE LINE 23
-    ns = runtime.Namespace('__anon_0x5fc2510', context._clean_inheritance_tokens(), templateuri=u'/message.mako', callables=None, calling_uri=_template_uri, module=None)
-    context.namespaces[(__name__, '__anon_0x5fc2510')] = ns
+    ns = runtime.TemplateNamespace('__anon_0x5905290', context._clean_inheritance_tokens(), templateuri=u'/message.mako', callables=None, calling_uri=_template_uri)
+    context.namespaces[(__name__, '__anon_0x5905290')] = ns
 
 def _mako_inherit(template, context):
     _mako_generate_namespaces(context)
@@ -43,7 +44,7 @@ def render_body(context,**pageargs):
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
         __M_writer = context.writer()
         # SOURCE LINE 11
         __M_writer(u'\n')
@@ -59,7 +60,7 @@ def render_body(context,**pageargs):
         __M_writer(u'\n\n')
         # SOURCE LINE 94
         __M_writer(u'\n\n')
-        # SOURCE LINE 121
+        # SOURCE LINE 119
         __M_writer(u'\n')
         return ''
     finally:
@@ -70,13 +71,13 @@ def render_body(context):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
         status = _import_ns.get('status', context.get('status', UNDEFINED))
+        redirect = _import_ns.get('redirect', context.get('redirect', UNDEFINED))
         render_msg = _import_ns.get('render_msg', context.get('render_msg', UNDEFINED))
         redirect_url = _import_ns.get('redirect_url', context.get('redirect_url', UNDEFINED))
-        def render_openid_form(referer,auto_associate,openid_providers):
-            return render_render_openid_form(context,referer,auto_associate,openid_providers)
-        referer = _import_ns.get('referer', context.get('referer', UNDEFINED))
+        def render_openid_form(redirect,auto_associate,openid_providers):
+            return render_render_openid_form(context,redirect,auto_associate,openid_providers)
         def render_login_form(form_action=None):
             return render_render_login_form(context,form_action)
         openid_providers = _import_ns.get('openid_providers', context.get('openid_providers', UNDEFINED))
@@ -92,6 +93,7 @@ def render_body(context):
             # SOURCE LINE 33
             __M_writer(unicode(redirect_url))
             __M_writer(u"';\n        </script>\n")
+            pass
         # SOURCE LINE 36
         __M_writer(u'\n')
         # SOURCE LINE 37
@@ -102,6 +104,7 @@ def render_body(context):
         else:
             # SOURCE LINE 40
             __M_writer(u'        <div>\n')
+            pass
         # SOURCE LINE 42
         __M_writer(u'\n')
         # SOURCE LINE 43
@@ -110,6 +113,7 @@ def render_body(context):
             __M_writer(u'        ')
             __M_writer(unicode(render_msg( message, status )))
             __M_writer(u'\n')
+            pass
         # SOURCE LINE 46
         __M_writer(u'\n')
         # SOURCE LINE 47
@@ -124,10 +128,12 @@ def render_body(context):
                 # SOURCE LINE 52
                 __M_writer(u'            <br/>\n            ')
                 # SOURCE LINE 53
-                __M_writer(unicode(render_openid_form( referer, False, openid_providers )))
+                __M_writer(unicode(render_openid_form( redirect, False, openid_providers )))
                 __M_writer(u'\n')
+                pass
             # SOURCE LINE 55
             __M_writer(u'\n')
+            pass
         # SOURCE LINE 57
         __M_writer(u'\n    </div>\n\n')
         return ''
@@ -139,7 +145,7 @@ def render_init(context):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
         self = _import_ns.get('self', context.get('self', UNDEFINED))
         active_view = _import_ns.get('active_view', context.get('active_view', UNDEFINED))
         __M_writer = context.writer()
@@ -160,38 +166,38 @@ def render_init(context):
         context.caller_stack._pop_frame()
 
 
-def render_render_openid_form(context,referer,auto_associate,openid_providers):
+def render_render_openid_form(context,redirect,auto_associate,openid_providers):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
         h = _import_ns.get('h', context.get('h', UNDEFINED))
         webapp = _import_ns.get('webapp', context.get('webapp', UNDEFINED))
         __M_writer = context.writer()
         # SOURCE LINE 96
-        __M_writer(u'\n\n    <div class="toolForm">\n        <div class="toolFormTitle">OpenID Login</div>\n        <form name="openid" id="openid" action="')
-        # SOURCE LINE 100
+        __M_writer(u'\n    <div class="toolForm">\n        <div class="toolFormTitle">OpenID Login</div>\n        <form name="openid" id="openid" action="')
+        # SOURCE LINE 99
         __M_writer(unicode(h.url_for( controller='user', action='openid_auth' )))
-        __M_writer(u'" method="post" >\n            <div class="form-row">\n                <label>OpenID URL:</label>\n                <input type="text" name="openid_url" size="60" style="background-image:url(\'')
-        # SOURCE LINE 103
+        __M_writer(u'" method="post" target="_parent" >\n            <div class="form-row">\n                <label>OpenID URL:</label>\n                <input type="text" name="openid_url" size="60" style="background-image:url(\'')
+        # SOURCE LINE 102
         __M_writer(unicode(h.url_for( '/static/images/openid-16x16.gif' )))
         __M_writer(u'\' ); background-repeat: no-repeat; padding-right: 20px; background-position: 99% 50%;"/>\n                <input type="hidden" name="webapp" value="')
-        # SOURCE LINE 104
+        # SOURCE LINE 103
         __M_writer(unicode(webapp))
-        __M_writer(u'" size="40"/>\n                <input type="hidden" name="referer" value="')
-        # SOURCE LINE 105
-        __M_writer(unicode(referer))
-        __M_writer(u'" size="40"/>\n                <input type="hidden" name="auto_associate" value="')
-        # SOURCE LINE 106
-        __M_writer(unicode(auto_associate))
+        __M_writer(u'" size="40"/>\n                <input type="hidden" name="redirect" value="')
+        # SOURCE LINE 104
+        __M_writer(unicode(redirect))
         __M_writer(u'" size="40"/>\n            </div>\n            <div class="form-row">\n                Or, authenticate with your <select name="openid_provider">\n')
-        # SOURCE LINE 110
-        for provider in openid_providers.keys():
-            # SOURCE LINE 111
-            __M_writer(u'                    <option>')
-            __M_writer(unicode(provider))
+        # SOURCE LINE 108
+        for provider in openid_providers:
+            # SOURCE LINE 109
+            __M_writer(u'                    <option value="')
+            __M_writer(unicode(provider.id))
+            __M_writer(u'">')
+            __M_writer(unicode(provider.name))
             __M_writer(u'</option>\n')
-        # SOURCE LINE 113
+            pass
+        # SOURCE LINE 111
         __M_writer(u'                </select> account.\n            </div>\n            <div class="form-row">\n                <input type="submit" name="login_button" value="Login"/>\n            </div>\n        </form>\n    </div>\n\n')
         return ''
     finally:
@@ -202,7 +208,7 @@ def render_center_panel(context):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
         def body():
             return render_body(context)
         __M_writer = context.writer()
@@ -220,10 +226,10 @@ def render_render_login_form(context,form_action=None):
     context.caller_stack._push_frame()
     try:
         _import_ns = {}
-        _mako_get_namespace(context, '__anon_0x5fc2510')._populate(_import_ns, [u'render_msg'])
+        _mako_get_namespace(context, '__anon_0x5905290')._populate(_import_ns, [u'render_msg'])
+        redirect = _import_ns.get('redirect', context.get('redirect', UNDEFINED))
         h = _import_ns.get('h', context.get('h', UNDEFINED))
         header = _import_ns.get('header', context.get('header', UNDEFINED))
-        referer = _import_ns.get('referer', context.get('referer', UNDEFINED))
         webapp = _import_ns.get('webapp', context.get('webapp', UNDEFINED))
         use_panels = _import_ns.get('use_panels', context.get('use_panels', UNDEFINED))
         email = _import_ns.get('email', context.get('email', UNDEFINED))
@@ -244,6 +250,7 @@ def render_render_login_form(context,form_action=None):
             __M_writer(u'        ')
             __M_writer(unicode(header))
             __M_writer(u'\n')
+            pass
         # SOURCE LINE 72
         __M_writer(u'    <div class="toolForm">\n        <div class="toolFormTitle">Login</div>\n        <form name="login" id="login" action="')
         # SOURCE LINE 74
@@ -254,9 +261,9 @@ def render_render_login_form(context,form_action=None):
         __M_writer(u'" size="40"/>\n                <input type="hidden" name="webapp" value="')
         # SOURCE LINE 78
         __M_writer(unicode(webapp))
-        __M_writer(u'" size="40"/>\n                <input type="hidden" name="referer" value="')
+        __M_writer(u'" size="40"/>\n                <input type="hidden" name="redirect" value="')
         # SOURCE LINE 79
-        __M_writer(unicode(referer))
+        __M_writer(unicode(redirect))
         __M_writer(u'" size="40"/>\n            </div>\n            <div class="form-row">\n                <label>Password:</label>\n                <input type="password" name="password" value="" size="40"/>\n                <div class="toolParamHelp" style="clear: both;">\n                    <a href="')
         # SOURCE LINE 85
         __M_writer(unicode(h.url_for( controller='user', action='reset_password', webapp=webapp, use_panels=use_panels )))

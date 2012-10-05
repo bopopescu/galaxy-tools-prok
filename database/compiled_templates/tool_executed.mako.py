@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 6
-_modified_time = 1309387824.070586
+_modified_time = 1349462735.897962
 _template_filename='templates/tool_executed.mako'
 _template_uri='tool_executed.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
@@ -32,7 +32,7 @@ def render_body(context,**pageargs):
         # SOURCE LINE 16
         if trans.user:  
             # SOURCE LINE 17
-            __M_writer(u'      if (inside_galaxy_frameset)\n      {\n            parent.frames.galaxy_tools.update_recently_used();\n      }\n')
+            __M_writer(u'      if (inside_galaxy_frameset)\n      {\n            //parent.frames.galaxy_tools.update_recently_used();\n      }\n')
             pass
         # SOURCE LINE 22
         __M_writer(u'  \n  if ( parent.handle_minwidth_hint ) {\n      parent.handle_minwidth_hint( -1 );\n  }\n\n  function main() {\n    // If called from outside the galaxy frameset, redirect there\n')
