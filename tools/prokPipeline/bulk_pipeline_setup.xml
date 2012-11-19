@@ -1,0 +1,18 @@
+<tool id="fa_bulk_pipeline_setup_1" name="Prok Pipeline Bulk Setup" version="1.0.0" force_history_refresh="True">
+  <requirements><requirement type='package'>prokPipeline</requirement></requirements>
+  <description>Setup several pipelines for execution.</description>
+  <command interpreter="perl">bulk_pipeline_runner.pl -b $config -o $bulk_out -g $bulk_out.id -d $__new_file_path__ -i $upload_path</command>
+  <inputs>
+	<param name="config" type="data" label="Bulk Config File" />
+	<param name="upload_path" type="text" label="Fasta Upload Directory" help="Directory on this server to which genome fasta files have been uploaded. Probably /mnt/galaxyData/tmp/ftp/[user]" size="60"/>
+</inputs>
+
+  <outputs>
+    <data name="bulk_out" format="input"/>
+  </outputs>
+
+  <help>
+This tool will prepare annotation areas for prok pipeline execution.
+  </help>
+
+</tool>
