@@ -1,11 +1,11 @@
 <tool id="cleanup_area" name="Cleanup Area" version="1.0.0" force_history_refresh="True">
   <requirements><requirement type='package'>prokPipeline</requirement></requirements>
   <description>Remove files from a previous run.</description>
-  <command interpreter="perl">cleanup_area.pl --project_root $project_root $delete &amp;&gt; $cleanup_log</command>
+  <command interpreter="perl">cleanup_area.pl --project_root /usr/local/annotation/$project_name $delete &amp;&gt; $cleanup_log</command>
 <!--  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config </command> -->
 
   <inputs>
-    <param name="project_root" type="text" label="Project Root" help="Path to cleanup/remove" size="60" />
+	  <param name="project_name" type="text" label="Project Name" help="Name of project residing in /usr/local/annotation/ to clean" size="60" />
     <param name="delete"  type="select" label="--delete" value="" help="BE VERY SURE YOU WANT TO DO THIS." >
       <option value="" selected="true">Only Cleanup, don't delete everything.</option>
       <option value="--delete">Remove everything including the given directory.</option>

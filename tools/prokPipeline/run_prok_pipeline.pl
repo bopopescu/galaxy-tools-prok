@@ -179,6 +179,17 @@ run_order is a strange beast, and not yet implemented.  When present for one sec
 
 =cut
 
+# These are necessary for running through galaxy on the grid.  For some reason, galaxy isn't
+# honoring its own environmental pass-through mechanism.
+$ENV{ANNOTATION_DIR} = '/usr/local/annotation';
+$ENV{ANNOTATION_DEVEL} = '/usr/local/devel/ANNOTATION';
+$ENV{COILSDIR} = '/usr/local/bin/coils';
+$ENV{BLASTBIN} = '/usr/local/bin/ncbi-blast-2.2.26+/bin';
+$ENV{HMM_SCRIPTS} = '/usr/local/common';
+$ENV{PERL5LIB} = '/usr/local/share/perl5';
+
+#print map {"$_\t$ENV{$_}\n"} keys %ENV; exit;
+
 use Config::IniFiles;
 use Getopt::Long qw( :config no_ignore_case no_auto_abbrev);
 use File::Path;
