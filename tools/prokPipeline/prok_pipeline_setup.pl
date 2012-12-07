@@ -12,7 +12,7 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
 
     USAGE: bulk_pipeline_runner.pl  --bulk_config_file /path/to/bulk_config
                                  [  --pipeline_config_template /path/to/PCT  ]
-								 [  --input_fasta_dir /path/to/input_fasta_files ]
+                                 [  --input_fasta_dir /path/to/input_fasta_files ]
                                  [  --setup_only  ]
                                    
 
@@ -27,17 +27,20 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
 =item B<--pipeline_config_template, -p> :   Path to the pipeline.config template, 
                                             which will be updated per genome with 
                                             details from the bulk_config_file.
-
                                             May be specified within the bulk_config_file.
 
 =item B<--setup_only, -s>               :   When given, this option prevents execution of
                                             the pipeline, but each project is still set
                                             up to be run later.
 
-=item B<--input_fasta_dir, -i>			:   This directory contains the location of the genome
+=item B<--input_fasta_dir, -i>          :   This directory contains the location of the genome
                                             fasta files named in the --bulk_config_file.
 
+=back
+
 =head2 Galaxy-specific Options
+
+=over
 
 =item B<--output_list, -o>              :   When given, this parameter provides the
                                             name of a file that will contain the path
@@ -47,7 +50,7 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
 
 =item B<--output_dir, -d>               :   When given, this paramter causes all 
                                             new pipeline config files to be created
-                                            in this directory.											
+                                            in this directory.
 
 
 =back

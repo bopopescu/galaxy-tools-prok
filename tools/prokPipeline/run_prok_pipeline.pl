@@ -260,7 +260,7 @@ sub run_section {
     my $runbit = $cfg->val( $section, 'runbit' );
     if ( defined $runbit && $runbit == 0 ) {
 
-        warn "Skipping execution of $section: runbit set to 0\n";
+        print "Skipping execution of $section: runbit set to 0\n";
         #return undef;
 
     } else {
