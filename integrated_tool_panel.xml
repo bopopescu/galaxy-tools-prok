@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <toolbox>
+    <section id="prok" name="Prok Pipeline" version="">
+        <tool id="prok_pipeline_setup" />
+        <tool id="run_prok_pipeline" />
+        <tool id="cleanup_area" />
+        <tool id="deliver_results" />
+    </section>
     <section id="getext" name="Get Data" version="">
         <tool id="upload1" />
         <tool id="ucsc_table_direct1" />

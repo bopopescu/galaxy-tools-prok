@@ -183,6 +183,7 @@ run_order is a strange beast, and not yet implemented.  When present for one sec
 # honoring its own environmental pass-through mechanism.
 $ENV{ANNOTATION_DIR} = '/usr/local/annotation';
 $ENV{ANNOTATION_DEVEL} = '/usr/local/devel/ANNOTATION';
+$ENV{ANNOT_DEVEL} = '/usr/local/devel/ANNOTATION';
 $ENV{COILSDIR} = '/usr/local/bin/coils';
 $ENV{BLASTBIN} = '/usr/local/bin/ncbi-blast-2.2.26+/bin';
 $ENV{HMM_SCRIPTS} = '/usr/local/common';

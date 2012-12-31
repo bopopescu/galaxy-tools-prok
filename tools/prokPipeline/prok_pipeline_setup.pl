@@ -365,7 +365,7 @@ sub execute_pipeline {
     my $project_dir  = get_param( $cfg, $genome, 'PROJECT_DIR'  );
 
     my $cmd = "/opt/sge/bin/lx24-amd64/qsub -V -terse -e $project_dir/$genome.run_prok_pipeline.$$.err";
-    $cmd .= " -o $project_dir/$genome.run_prok_pipeline.$$.out";
+    $cmd .= " -o $project_dir/$genome.run_prok_pipeline.$$.out ";
 #    $cmd .= " -P $project_code " if ( defined $project_code);
 
     $cmd .= $global_values->{PIPELINE_EXEC_BIN} . " -c $conf --trace 0";

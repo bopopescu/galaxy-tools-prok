@@ -1,7 +1,7 @@
 <tool id="run_prok_pipeline" name="Run Prok Pipeline" version="1.0.0" force_history_refresh="True">
   <requirements><requirement type='package'>prokPipeline</requirement></requirements>
   <description>Run a single genome.</description>
-  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config  &gt;&gt;$pipeline_log 2&gt;&amp;1</command>
+  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config  &amp;&gt; $pipeline_log</command>
 <!--  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config</command> -->
   <inputs>
     <param name="config" type="data" label="Pipeline Config File" />
@@ -9,7 +9,7 @@
   </inputs>
 
   <outputs>
-    <data name="pipeline_log" format="txt" />
+    <data name="pipeline_log" format="Text" />
   </outputs>
 
 </tool>
