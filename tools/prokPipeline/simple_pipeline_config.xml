@@ -1,33 +1,40 @@
-<tool id="bulk_config_maker" name="Create Bulk Config" version="1.0.0" force_history_refresh="True">
+<tool id="simple_prok_pipeline_config" name="Configure Prokaryotic Pipeline" version="1.0.0" force_history_refresh="True">
 
-  <description>Interactive Bulk Pipeline Config Creation</description>
+  <description>Configure Prokaryotic Pipeline</description>
     <!-- This now needs to:
         1. Create the config file for each run.
         2. Execute the config file for each run.
         3. Automatically tarball the project area and display it as a history item?
     -->
 
-  <command interpreter="perl">simple_pipeline_config.pl --template_config /usr/local/annotation/generic.config.ini --contact_ba $contact_ba --locus_sym $locus_sym --genome_fasta_file $genome_fasta_file --organism $organism --taxon_id $taxon_id --gcode $gcode --gram_stain $gram_stain</command>
+  <command interpreter="perl">simple_pipeline_config.pl --template_config /usr/local/annotation/generic.config.ini --contact_ba "$contact_ba" --locus_sym $locus_sym --genome_fasta_file $genome_fasta_file --organism "$organism" --taxon_id $taxon_id --gcode $gcode --gram_stain $gram_stain --output_path $bulk_out</command>
 
   <inputs>
 
     <param name="contact_ba" type="text" label="Contact" help="Example: Your Name.  This will be used to when creating genbank submissions." optional="false"/>
     <param name="locus_sym" type="text" label="Locus Symbol" help="Example: ECOLI" />
-    <param name="genome_fasta_file" type="data" label="Genome File Path" help="select the desired genome fasts from your history" />
+    <param name="genome_fasta_file" type="data" format="fasta" label="Genome File Path" help="select the desired genome fasta from your history" />
     <param name="organism" type="text" label="Organism Name" help="Example: Escherichia coli 1520" />
     <param name="taxon_id" type="text" label="Taxon ID" help="From http://www.ncbi.nlm.nih.gov/taxonomy; Example: 526563" />
     <param name="gcode" type="select" label="Genetic Code" help="From http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi; Example: 11" value="11" >
+      <option value="1"> 1. The Standard Code </option>  
       <option value="4"> 4. The Mold, Protozoan, and Coelenterate Mitochondrial Code and the Mycoplasma/Spiroplasma Code </option>
       <option value="11" selected="true"> 11. The Bacterial, Archaeal and Plant Plastid Code </option>
     </param>
     <param name="gram_stain" type="select" label="Gram Stain" help="Gram Stain Reaction" value="0">
+      <option value="0">Not Applicable</option>
       <option value="0" selected="true">Gram-negative</option>
       <option value="1">Gram-positive</option>
     </param>
+    <!--    <param name="debug_level" type="select" label="Debug Level" help="Detail of Debugging Log" value='1'>
+        <option value="1" selected="true">Low</option>
+        <option value="6">Medium</option>
+        <option value="9">High</option>
+    </param> -->
   </inputs>
 
   <outputs>
-    <data name="bulk_out" format="text" />
+    <data name="bulk_out" format="txt" />
   </outputs>
 
 </tool>

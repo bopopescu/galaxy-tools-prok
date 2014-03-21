@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 $|++;
-
+# die join(" ",$0, map {"'$_'"} @ARGV),"\n";
 =head1 NAME
 
 run_prok_pipeline.pl - Invoke the JCVI Prokaryotic Annotation Pipeline

@@ -44,15 +44,40 @@ cleanup_area.pl - remove part or all of a given project
 use File::Path qw( remove_tree );
 use Getopt::Long qw( :config no_ignore_case no_auto_abbrev);
 use Pod::Usage;
+use Config::IniFiles;
 
 my %opts;
 GetOptions( \%opts,
+            'run_log=s',
             'delete',
-            'project_root=s',
+            'project_root|p=s',
+            'test|t',
             'help|h',
           ) || die "Unable to retrieve options: $!";
 
 pod2usage( {-exitval => 0, -verbose => 2} ) if $opts{help};
+
+if ($opts{run_log}) {
+    open my $run_log, '<', $opts{run_log} or die "Can't open run log at $opts{run_log}. $?\n";
+    my $config_file;
+    while (my $line = <$run_log>) {
+        if (/^config_file\s*=\s*(\S+)$/) {
+            $config_file = $1;
+            last;
+        }
+    }
+    close $run_log;
+    die "Couldn't find config file in run log\n" unless ($config_file && -f $config_file);
+    my $cfg = Config::IniFiles->new( -file=> $config_file );
+    my $annotation_area = $cfg->val('Globals','ANNOTATION_AREA');
+    my $project_name = $cfg->val('Globals','PROJECT_NAME');
+    if ($annotation_area && $project_name) {
+        $opts{project_root} = "$annotation_area/$project_name";
+    }
+    else {
+        die "Could not parse ANNOTATION_AREA and PROJECT_NAME from config file at $config_file.\n";
+    }
+} 
 
 my @pipeline_bits = qw( autoAnnotate auto_gene_curate BER_searches ber_search.log candidate.fa consistency_checks genecall gip glimmer HMM_searches load_genome locus_loader logs RNA_searches sge_grid_ber_search* small_genome_control tmp.file valet_pep );
 
@@ -92,22 +117,22 @@ if ( $opts{delete} ) {
 }
 
 # delete.
-delete_paths( \@paths_to_delete );
+delete_paths( \@paths_to_delete, $opts{test} );
 
 exit(0);
 
 
 sub delete_paths {
 
-	my ( $paths_to_delete ) = @_;
+	my ( $paths_to_delete, $test ) = @_;
 
 	for my $path ( @$paths_to_delete ) {
 
 		my $err;
 		print "Deleting $path\n";
-		remove_tree( $opts{project_root}, { verbose => 1, error => \$err, } );
+        remove_tree( $path, { verbose => 1, error => \$err, } ) unless $test;
 
-		if (@$err) {
+		if ($err) {
 			for my $diag (@$err) {
 				my ($file, $message) = %$diag;
 				if ($file eq '') {

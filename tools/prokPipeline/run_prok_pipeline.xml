@@ -1,11 +1,9 @@
-<tool id="run_prok_pipeline" name="Run Prok Pipeline" version="1.0.0" force_history_refresh="True">
+<tool id="run_prok_pipeline" name="Run Pipeline" version="1.0.0" force_history_refresh="True">
   <requirements><requirement type='package'>prokPipeline</requirement></requirements>
-  <description>Run a single genome.</description>
-  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config  &gt;&gt;$pipeline_log 2&gt;&amp;1</command>
-<!--  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config</command> -->
+  <description>Run Prokaryotic Annotation Pipeline on Prepared Settings</description>
+  <command interpreter="perl">run_prok_pipeline.pl --trace 6 -c $config  &gt;&gt;$pipeline_log 2&gt;&amp;1</command>
   <inputs>
     <param name="config" type="data" label="Pipeline Config File" />
-    <param name="trace"  type="integer" label="Trace level" value="0" />
   </inputs>
 
   <outputs>

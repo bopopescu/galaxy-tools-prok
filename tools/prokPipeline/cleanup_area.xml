@@ -1,14 +1,14 @@
 <tool id="cleanup_area" name="Cleanup Area" version="1.0.0" force_history_refresh="True">
   <requirements><requirement type='package'>prokPipeline</requirement></requirements>
   <description>Remove files from a previous run.</description>
-  <command interpreter="perl">cleanup_area.pl --project_root /usr/local/annotation/$project_name $delete &amp;&gt; $cleanup_log</command>
-<!--  <command interpreter="perl">run_prok_pipeline.pl -trace $trace -c $config </command> -->
+  <command interpreter="perl">cleanup_area.pl --project_root /usr/local/annotation/$project_name $delete 2&gt; $cleanup_log</command>
 
   <inputs>
-	  <param name="project_name" type="text" label="Project Name" help="Name of project residing in /usr/local/annotation/ to clean" size="60" />
-    <param name="delete"  type="select" label="--delete" value="" help="BE VERY SURE YOU WANT TO DO THIS." >
-      <option value="" selected="true">Only Cleanup, don't delete everything.</option>
-      <option value="--delete">Remove everything including the given directory.</option>
+	  <param name="run_log" type="data" label="Galaxy Pipeline Run Log"/>
+ 
+    <param name="delete"  type="select" label="--delete" value="" help="Delete ALL data, including Submission Files. BE VERY SURE YOU WANT TO DO THIS." >
+      <option value="" selected="true">No: Only remove temporary working files.</option>
+      <option value="--delete">Yes: Remove everything.</option>
     </param>
   </inputs>
 

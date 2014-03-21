@@ -6,14 +6,13 @@ $|++;
 
 =head1 NAME
 
-bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
+prok_pipeline_setup.pl - setup several pipelines to be submitted as grid jobs.
 
 =head1 SYNOPSIS
 
-    USAGE: bulk_pipeline_runner.pl  --bulk_config_file /path/to/bulk_config
+    USAGE: prok_pipeline_setup.pl  --bulk_config_file /path/to/bulk_config
                                  [  --pipeline_config_template /path/to/PCT  ]
                                  [  --input_fasta_dir /path/to/input_fasta_files ]
-                                 [  --setup_only  ]
                                    
 
 =head1 OPTIONS
@@ -29,10 +28,6 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
                                             details from the bulk_config_file.
                                             May be specified within the bulk_config_file.
 
-=item B<--setup_only, -s>               :   When given, this option prevents execution of
-                                            the pipeline, but each project is still set
-                                            up to be run later.
-
 =item B<--input_fasta_dir, -i>          :   This directory contains the location of the genome
                                             fasta files named in the --bulk_config_file.
 
@@ -42,15 +37,7 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
 
 =over
 
-=item B<--output_list, -o>              :   When given, this parameter provides the
-                                            name of a file that will contain the path
-                                            of each config file generated.  If jobs
-                                            have been submitted, the sge job id is 
-                                            listed before each file path.
-
-=item B<--output_dir, -d>               :   When given, this paramter causes all 
-                                            new pipeline config files to be created
-                                            in this directory.
+=item B<--output_file, -o>              :   File to save config in (assumes a single genome)
 
 
 =back
@@ -63,14 +50,6 @@ bulk_pipeline_runner.pl - setup several pipelines to be submitted as grid jobs.
     Inputs for the pipeline invocations are passed in through the declaration
     of a 'bulk_config_file', the contents of which describe certain parameters
     that will be used to fill out the 'pipeline_config_template'.
-
-    When --setup_only is used, the project areas and files get created, but are
-    not started.  The run_prok_pipeline.pl script can be used to invoke these
-    instances of the pipeline.
-
-    No tracking is attempted once the jobs are launched.  Users should be familiar
-    with both the SGE/Univa Grid tools and the individual steps of the pipeline
-    to track and monitor progress.
 
 =head1 CONTACT
 
@@ -88,7 +67,6 @@ use Pod::Usage;
 
 my %opts = ();
 my $global_values;
-my $setup_only;
 my @output_list;
 
 my @required_params = ( 'PROJECT_DIR',
@@ -104,11 +82,9 @@ my @required_params = ( 'PROJECT_DIR',
 
 GetOptions( \%opts, 'bulk_config_file|b=s',
                     'pipeline_config_template|p=s',
-                    'setup_only|s',
+                    'setup_only|s', # left for legacy reasons; is always setup_only
 					'input_fasta_dir|i=s',
-                    'output_list|o=s',
-                    'output_dir|d=s',
-                    'galaxy_list_id|g=s',
+                    'output_file|o=s',
                     'help|h',
         ) || die "Problem getting options!\n";
 
@@ -136,28 +112,8 @@ for my $genome ( $bcf_ini->Sections() ) {
 
     # 4. Create a copy of the config file
     my $conf_file_path = create_config_file( $proj_dir, $bcf_ini, $genome );
-
-    # 5. Send it off! (don't wait for it.  this is parallel!)
-    my $job_id = execute_pipeline( $bcf_ini, $genome, $conf_file_path ) unless $setup_only;
-
-    if ( $opts{output_list} ) {
-
-        my $line = "$job_id\t" unless $setup_only;
-        $line .= $conf_file_path;
-        push( @output_list, $line );
-
-    }
-
-
 }
 
-if ( $opts{output_list} ) {
-
-    open( my $ofh, '>', $opts{output_list} );
-    select $ofh;
-    print map {"$_\n"} @output_list;
-
-}
 
 exit (0);
 
@@ -220,7 +176,10 @@ sub create_and_populate_GenomeFasta {
 
 	# Check for existance of genome fasta
     my $fasta_name = get_param( $cfg, $genome, 'YOUR_FILE_NAME' );
-	my $fasta_file_path = $opts{input_fasta_dir} . "/$fasta_name";
+    my $fasta_file_path = get_param($cfg,$genome,'YOUR_FILE_PATH');
+    if (not $fasta_file_path ) {
+	    $fasta_file_path = $opts{input_fasta_dir} . "/$fasta_name";
+    }
 
 	unless ( -e $fasta_file_path ) {
 
@@ -329,13 +288,9 @@ sub create_config_file {
 
     $pcfg->RewriteConfig;
 
-    if ( defined $opts{output_dir} ) {
-    # This whole block of nonsense is to get around Galaxy's irksome way of dealing
-    # with an unknown number of output files and how to get them into the history.
+    if ( defined $opts{output_file} ) {
 
-        my @name_parts = ( 'primary', $opts{galaxy_list_id}, $genome, 'visible', 'input' );
-        my $conf_name_galaxy = join( '_', @name_parts );
-        my $output_dir_conf = $opts{output_dir} . "/" . $conf_name_galaxy;
+        my $output_dir_conf = $opts{output_file};
 
 		# ensure existance of new_conf:
 		unless ( -e $new_conf ) {
@@ -353,30 +308,6 @@ sub create_config_file {
     return( $new_conf );
 
 }
-
-
-sub execute_pipeline {
-# Given a pipeline config file, will call run_prok_pipeline
-# via qsub to get it running on the grid.
-
-    my ( $cfg, $genome, $conf ) = @_;
-
-    my $project_code = get_param( $cfg, $genome, 'PROJECT_CODE' );
-    my $project_dir  = get_param( $cfg, $genome, 'PROJECT_DIR'  );
-
-    my $cmd = "/opt/sge/bin/lx24-amd64/qsub -V -terse -e $project_dir/$genome.run_prok_pipeline.$$.err";
-    $cmd .= " -o $project_dir/$genome.run_prok_pipeline.$$.out ";
-#    $cmd .= " -P $project_code " if ( defined $project_code);
-
-    $cmd .= $global_values->{PIPELINE_EXEC_BIN} . " -c $conf --trace 0";
-
-    my $job_id = `$cmd`;
-
-    print "$genome launched: $job_id\n";    
-
-    return $job_id;
-}
-
 
 sub get_param {
 # Given a config object, a section, and a parameter key, will replace any string found
@@ -494,9 +425,6 @@ sub parse_opts {
 
 		}
 
-        die "input_fasta_dir $opts->{input_fasta_dir} is not readable.\n"
-            unless ( -r $opts{input_fasta_dir} );
-
     } else {
 
         die "Need --input_fasta_dir\n";
@@ -504,18 +432,6 @@ sub parse_opts {
     }
 
     set_global_values( $cfg );
-
-    if ( $opts{output_dir} ) {
-
-        die "Can't find $opts{output_dir}\n" unless ( -e $opts{output_dir} );
-        die "Can't write to $opts{output_dir}\n" unless ( -w $opts{output_dir} );
-
-        chop $opts{output_dir} if ( $opts{output_dir} =~ /\/$/ );
-
-    }
-
-
-    $setup_only = $opts->{setup_only} // 0;
 
     return( $cfg );
 

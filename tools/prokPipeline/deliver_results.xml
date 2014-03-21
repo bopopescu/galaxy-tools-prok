@@ -1,22 +1,18 @@
 <tool id="deliver_results" name="Deliver Results" version="1.0.0" force_history_refresh="True">
   <requirements><requirement type='package'>prokPipeline</requirement></requirements>
   <description>Tarball an annotation area and move it to ftp.</description>
-  <command interpreter="perl">deliver_results.pl --project_root /usr/local/annotation/$project_name --delivery_location /mnt/galaxyData/tmp/ftp/$__user_email__ $delete &amp;&gt; $delivery_log</command>
+  <command interpreter="perl">deliver_results.pl --run_log $run_log --delivery_location $submission_tarball</command>
 
   <inputs>
-	  <param name="project_name" type="text" label="Project Name" help="Name of project residing in /usr/local/annotation/ to deliver" size="60" />
-    <param name="delete"  type="select" label="--delete" value="" help="BE VERY SURE YOU WANT TO DO THIS." >
-      <option value="" selected="true">Deliver, but don't delete everything.</option>
-      <option value="--delete">Remove everything after delivery to ftp.</option>
-    </param>
+	  <param name="run_log" type="data" label="Run Pipeline Log"/>
   </inputs>
 
   <outputs>
-	  <data name="delivery_log" format="txt" />
+	  <data name="submission_tarball" format="data.tgz" />
   </outputs>
 
   <help>
-	  This tool will create a tarball of the entire directory for the project named at /mnt/galaxyData/tmp/ftp/[username].
+	  This tool will create a tarball of the GenBank submission files for download.
   </help>
 
 </tool>
