@@ -413,20 +413,20 @@ class SQLiteDialect(default.DefaultDialect):
     def table_names(self, connection, schema):
         if schema is not None:
             qschema = self.identifier_preparer.quote_identifier(schema)
-            master = '%s.sqlite_master' % qschema
+            main = '%s.sqlite_main' % qschema
             s = ("SELECT name FROM %s "
-                 "WHERE type='table' ORDER BY name") % (master,)
+                 "WHERE type='table' ORDER BY name") % (main,)
             rs = connection.execute(s)
         else:
             try:
                 s = ("SELECT name FROM "
-                     " (SELECT * FROM sqlite_master UNION ALL "
-                     "  SELECT * FROM sqlite_temp_master) "
+                     " (SELECT * FROM sqlite_main UNION ALL "
+                     "  SELECT * FROM sqlite_temp_main) "
                      "WHERE type='table' ORDER BY name")
                 rs = connection.execute(s)
             except exc.DBAPIError:
                 raise
-                s = ("SELECT name FROM sqlite_master "
+                s = ("SELECT name FROM sqlite_main "
                      "WHERE type='table' ORDER BY name")
                 rs = connection.execute(s)
 
